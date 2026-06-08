@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light-default">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT-ITeS AI Teacher Tool</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#2563eb">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIklULUFUZVMgQUkgVGVhY2hlciIsCiAgInNob3J0X25hbWUiOiAiQUkgVGVhY2hlciIsCiAgInN0YXJ0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZmZmZmZmIiwKICAidGhlbWVfY29sb3IiOiAiIzI1NjNlYiIKfQ==">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        /* CSS Theme Matrix configuration */
+        :root[data-theme="light-default"] { --bg: #ffffff; --surface: #f3f4f6; --text: #1f2937; --primary: #2563eb; --primary-hover: #1d4ed8; --accent: #3b82f6; }
+        :root[data-theme="light-sepia"] { --bg: #fdf6e3; --surface: #eee8d5; --text: #657b83; --primary: #b58900; --primary-hover: #93a1a1; --accent: #cb4b16; }
+        :root[data-theme="light-mint"] { --bg: #f0fdf4; --surface: #dcfce7; --text: #166534; --primary: #15803d; --primary-hover: #166534; --accent: #22c55e; }
+        :root[data-theme="light-frost"] { --bg: #f8fafc; --surface: #e2e8f0; --text: #334155; --primary: #0284c7; --primary-hover: #0369a1; --accent: #38bdf8; }
+        :root[data-theme="light-pink"] { --bg: #fff5f7; --surface: #ffe4e6; --text: #881337; --primary: #db2777; --primary-hover: #be185d; --accent: #f472b6; }
+        
+        :root[data-theme="dark-cyberpunk"] { --bg: #0f172a; --surface: #1e293b; --text: #f8fafc; --primary: #06b6d4; --primary-hover: #0891b2; --accent: #22d3ee; }
+        :root[data-theme="dark-oled"] { --bg: #000000; --surface: #111111; --text: #ffffff; --primary: #ffffff; --primary-hover: #cccccc; --accent: #a855f7; }
+        :root[data-theme="dark-dracula"] { --bg: #282a36; --surface: #44475a; --text: #f8f8f2; --primary: #ff79c6; --primary-hover: #bd93f9; --accent: #50fa7b; }
+        :root[data-theme="dark-ocean"] { --bg: #0f1d2a; --surface: #1a3146; --text: #e2e8f0; --primary: #14b8a6; --primary-hover: #0d9488; --accent: #2dd4bf; }
+        :root[data-theme="dark-mono"] { --bg: #18181b; --surface: #27272a; --text: #f4f4f5; --primary: #fafafa; --primary-hover: #e4e4e7; --accent: #a1a1aa; }
+
+        body { background-color: var(--bg); color: var(--text); transition: all 0.2s ease; }
+        .surface-card { background-color: var(--surface); }
+        .btn-primary { background-color: var(--primary); color: var(--bg); }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+        .text-accent { color: var(--accent); }
+        .border-accent { border-color: var(--accent); }
+        
+        .tab-btn.active { border-bottom: 3px solid var(--primary); font-weight: bold; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden antialiased font-sans">
+
+    <div id="apiKeyModal" class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50 hidden">
+        <div class="surface-card p-6 rounded-2xl max-w-md w-full border border-accent shadow-2xl">
+            <h2 class="text-xl font-bold mb-2">🔑 Configure Gemini AI</h2>
+            <p class="text-sm opacity-80 mb-4">Please input your Google Gemini API Key to initialize your Personal IT-ITeS Educator.</p>
+            <input type="password" id="apiKeyInput" placeholder="AIzaSy..." class="w-full p-3 rounded-xl bg-white/10 border border-neutral-500 mb-4 text-sm focus:outline-none focus:border-accent">
+            <button onclick="saveApiKey()" class="w-full btn-primary py-3 rounded-xl font-bold transition-all">Launch Workspace</button>
+        </div>
+    </div>
+
+    <header class="surface-card border-b border-neutral-300/20 px-4 py-3 flex justify-between items-center z-10">
+        <div class="flex items-center gap-2">
+            <span class="text-2xl">🤖</span>
+            <div>
+                <h1 class="text-sm font-bold tracking-tight">IT-ITeS AI EDU-ENGINE</h1>
+                <p class="text-xs opacity-60">NSQF Skill Curriculum Platform</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-2">
+            <button onclick="cycleTheme()" class="p-2 rounded-xl border border-neutral-400/30 text-xs flex items-center gap-1 font-semibold hover:opacity-80">
+                🎨 Theme: <span id="themeName" class="text-accent uppercase">Default Light</span>
+            </button>
+            <button onclick="clearApiKey()" class="p-2 rounded-xl text-xs bg-red-500/10 text-red-400 font-medium hover:bg-red-500/20">Reset API</button>
+        </div>
+    </header>
+
+    <div class="flex-1 flex overflow-hidden relative">
+
+        <aside id="sidebar" class="w-72 surface-card border-r border-neutral-300/20 flex flex-col overflow-y-auto transform transition-transform duration-300 absolute md:static z-20 h-full">
+            <div class="p-4 font-bold text-xs uppercase opacity-50 tracking-wider">Course Syllabus Tree</div>
+            
+            <div class="px-2 mb-4">
+                <div class="p-2 text-xs font-bold bg-blue-500/10 rounded text-accent flex justify-between">
+                    <span>📘 PART A: Employability Skills</span>
+                    <span>10 Marks</span>
+                </div>
+                <div class="space-y-1 mt-1 text-sm">
+                    <button onclick="selectTopic('Part A - Unit 1: Communication Skills')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Unit 1: Communication Methods</button>
+                    <button onclick="selectTopic('Part A - Unit 2: Self-management Skills')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Unit 2: Self-management & Discipline</button>
+                    <button onclick="selectTopic('Part A - Unit 3: Basic ICT Skills')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Unit 3: Operating Systems & Files</button>
+                    <button onclick="selectTopic('Part A - Unit 4: Entrepreneurial Skills')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Unit 4: Entrepreneurship & Markets</button>
+                    <button onclick="selectTopic('Part A - Unit 5: Green Skills')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Unit 5: Sustainable Development</button>
+                </div>
+            </div>
+
+            <div class="px-2 mb-4">
+                <div class="p-2 text-xs font-bold bg-green-500/10 rounded text-accent flex justify-between">
+                    <span>🛠️ PART B: Domestic CRM Voice</span>
+                    <span>20 Marks</span>
+                </div>
+                <div class="space-y-1 mt-1 text-sm">
+                    <button onclick="selectTopic('Part B - Unit 1: Introduction to the IT-ITeS Industry')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Unit 1: Indian BPO Structure</button>
+                    <button onclick="selectTopic('Part B - Unit 2: Training of CRM Domestic Voice')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Unit 2: Query Resolution Roles</button>
+                    <button onclick="selectTopic('Part B - Unit 3: Making Outbound Calls')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Unit 3: Customer Vocabulary</button>
+                    <button onclick="selectTopic('Part B - Unit 4: Using CRM Applications')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Unit 4: Logging Systems & Software</button>
+                    <button onclick="selectTopic('Part B - Unit 5: Work Management')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Unit 5: Schedules & Ethics</button>
+                    <button onclick="selectTopic('Part B - Unit 6: Workplace Safety & Hazards')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Unit 6: Tech Office Health Guidelines</button>
+                </div>
+            </div>
+
+            <div class="px-2 mb-4">
+                <div class="p-2 text-xs font-bold bg-purple-500/10 rounded text-accent flex justify-between">
+                    <span>💻 PART C: Practical Applications</span>
+                    <span>70 Marks</span>
+                </div>
+                <div class="space-y-1 mt-1 text-sm">
+                    <button onclick="selectTopic('Part C - Application Focus: Word Processing & Spreadsheets')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Word Processing & Spreadsheets</button>
+                    <button onclick="selectTopic('Part C - Focus: Regional Language Processing')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Bengali / Assamese Scripts</button>
+                    <button onclick="selectTopic('Part C - Mock Sandbox: Project Portfolio & Viva')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs">Business Portfolio & Viva Prep</button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col min-w-0">
+            <div class="p-4 border-b border-neutral-300/10 flex items-center justify-between">
+                <button onclick="toggleSidebar()" class="md:hidden p-2 rounded surface-card text-xs">☰ Menu</button>
+                <div class="text-sm font-semibold text-accent" id="activeTopicLabel">Select a Syllabus Topic from the Menu to Start Learning</div>
+                <div id="progressTracker" class="text-xs font-medium opacity-60">Progress Saved Local</div>
+            </div>
+
+            <div class="flex border-b border-neutral-300/10 text-sm">
+                <button onclick="switchTab('theory')" id="tab-theory" class="tab-btn active flex-1 py-3 text-center transition-all">📖 Core Theory</button>
+                <button onclick="switchTab('practical')" id="tab-practical" class="tab-btn flex-1 py-3 text-center transition-all">🛠️ Practical Lab Sandbox</button>
+                <button onclick="switchTab('exam')" id="tab-exam" class="tab-btn flex-1 py-3 text-center transition-all">📝 Modular Assessment</button>
+            </div>
+
+            <div class="flex-1 p-4 overflow-y-auto space-y-4">
+                
+                <div id="view-theory" class="tab-view space-y-4">
+                    <div class="surface-card p-6 rounded-2xl border border-neutral-400/20 shadow-sm">
+                        <h3 class="text-lg font-bold mb-2 flex items-center gap-2">Interactive Lectures & Summarized Theory</h3>
+                        <p class="text-xs opacity-75 mb-4">Click "Generate Concept Study Guide" below to fetch custom theory breakdown dynamically based on NSQF guidelines.</p>
+                        <button onclick="fetchTheory()" class="btn-primary px-4 py-2 rounded-xl text-xs font-bold shadow-md">✨ Generate Concept Study Guide</button>
+                        <div id="theoryOutput" class="mt-6 text-sm leading-relaxed whitespace-pre-line border-t border-neutral-400/20 pt-4 opacity-90">Your generated lesson plan parameters will load right here...</div>
+                    </div>
+                </div>
+
+                <div id="view-practical" class="tab-view space-y-4 hidden">
+                    <div class="surface-card p-6 rounded-2xl border border-neutral-400/20 shadow-sm">
+                        <h3 class="text-lg font-bold mb-2">Automated Operational Assignment Engine</h3>
+                        <p class="text-xs opacity-75 mb-4">Generate step-by-step guidance parameters matching the NSQF practical module criteria.</p>
+                        <button onclick="fetchPractical()" class="btn-primary px-4 py-2 rounded-xl text-xs font-bold shadow-md">🚀 Generate Laboratory Objective</button>
+                        <div id="practicalOutput" class="mt-6 text-sm leading-relaxed whitespace-pre-line border-t border-neutral-400/20 pt-4 mb-4">Practical labs, spreadsheets, blueprints, and script handling pipelines populate here...</div>
+                        
+                        <div class="border border-neutral-400/20 rounded-xl p-4 mt-4 bg-black/5">
+                            <h4 class="text-xs font-bold uppercase tracking-wider mb-2 text-accent">📍 Regional Script Sandbox (Bengali / Assamese Processing)</h4>
+                            <textarea id="regionalInput" rows="3" placeholder="Practice typing your Bengali or Assamese text structures here..." class="w-full p-3 rounded-lg bg-white/5 border border-neutral-500 text-xs focus:outline-none focus:border-accent mb-2"></textarea>
+                            <button onclick="verifyRegionalScript()" class="px-3 py-1.5 bg-purple-500 text-white rounded-lg text-xs font-semibold hover:bg-purple-600 transition-all">Verify Native Script Layout</button>
+                        </div>
+
+                        <div class="border border-neutral-400/20 rounded-xl p-4 mt-4 bg-black/5">
+                            <h4 class="text-xs font-bold uppercase tracking-wider mb-2 text-accent">📞 Interactive CRM Outbound Voice Roleplay</h4>
+                            <p class="text-xs opacity-70 mb-2">Engage the customer simulation script processing Engine via speech inputs.</p>
+                            <div class="flex gap-2">
+                                <button onclick="startVoiceRoleplay()" class="px-3 py-1.5 bg-green-600 text-white rounded-lg text-xs font-semibold hover:bg-green-700 transition-all flex items-center gap-1">🎙️ Start Voice Call</button>
+                                <button onclick="stopVoiceRoleplay()" class="px-3 py-1.5 bg-red-600 text-white rounded-lg text-xs font-semibold hover:bg-red-700 transition-all">End Call</button>
+                            </div>
+                            <div id="voiceTranscript" class="text-xs italic mt-2 p-2 bg-black/10 rounded min-h-[30px] opacity-80">Voice pipeline connection standby state...</div>
+                        </div>
+
+                        <div class="border border-neutral-400/20 rounded-xl p-4 mt-4 bg-black/5">
+                            <h4 class="text-xs font-bold uppercase tracking-wider mb-2 text-accent">🗂️ Simulated CRM Ticket Entry Automation Suite</h4>
+                            <div class="grid grid-cols-2 gap-2 mb-2">
+                                <input type="text" id="ticketCustomer" placeholder="Customer Name" class="p-2 rounded bg-white/5 border border-neutral-500 text-xs focus:outline-none">
+                                <select id="ticketPriority" class="p-2 rounded bg-white/5 border border-neutral-500 text-xs focus:outline-none">
+                                    <option value="Low">Low Priority</option>
+                                    <option value="Medium">Medium Priority</option>
+                                    <option value="High">Critical Level Escalation</option>
+                                </select>
+                            </div>
+                            <textarea id="ticketIssue" rows="2" placeholder="Describe query parameters to route to corresponding system arrays..." class="w-full p-2 rounded bg-white/5 border border-neutral-500 text-xs focus:outline-none"></textarea>
+                            <button onclick="submitCRMTicket()" class="mt-2 px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-semibold hover:bg-blue-700 transition-all">Log Complaint Ticket Entry</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-exam" class="tab-view space-y-4 hidden">
+                    <div class="surface-card p-6 rounded-2xl border border-neutral-400/20 shadow-sm">
+                        <h3 class="text-lg font-bold mb-2">Dynamic Simulator Examination Testing Station</h3>
+                        <p class="text-xs opacity-75 mb-4">Generates mock question configurations containing randomized variations built strictly upon NSQF marks layout.</p>
+                        <button onclick="fetchExam()" class="btn-primary px-4 py-2 rounded-xl text-xs font-bold shadow-md">📝 Render Custom Examination Module</button>
+                        <div id="examOutput" class="mt-6 text-sm leading-relaxed whitespace-pre-line border-t border-neutral-400/20 pt-4">Click target trigger button to render examination parameters...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-neutral-300/20 surface-card p-3 flex flex-col gap-2">
+                <div id="chatResponse" class="hidden text-xs max-h-24 overflow-y-auto p-2 rounded-xl bg-black/10 border border-neutral-400/10 italic"></div>
+                <div class="flex gap-2">
+                    <input type="text" id="chatInput" placeholder="Ask questions about the current module..." class="flex-1 p-2.5 rounded-xl bg-white/5 border border-neutral-500 text-xs focus:outline-none focus:border-accent" onkeydown="if(event.key === 'Enter') sendChatMessage()">
+                    <button onclick="sendChatMessage()" class="btn-primary px-4 rounded-xl text-xs font-bold transition-all">Submit Query</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let currentTopic = "";
+        let currentTab = "theory";
+        
+        // 10 Themes Cycling Matrix Configurations
+        const themes = [
+            { id: "light-default", name: "Default Light" },
+            { id: "light-sepia", name: "Sepia Notebook" },
+            { id: "light-mint", name: "Forest Mint" },
+            { id: "light-frost", name: "Nordic Frost" },
+            { id: "light-pink", name: "Material Pink" },
+            { id: "dark-cyberpunk", name: "Cyberpunk Dark" },
+            { id: "dark-oled", name: "Midnight OLED" },
+            { id: "dark-dracula", name: "Dracula Matrix" },
+            { id: "dark-ocean", name: "Nord Ocean" },
+            { id: "dark-mono", name: "Monochrome Dark" }
+        ];
+        let themeIndex = 0;
+
+        // Unified Native Telephony Engine Recognition Array Hook
+        let voiceRecognition;
+        let isRecording = false;
+
+        window.onload = function() {
+            checkApiKey();
+            initSpeechRecognition();
+        };
+
+        function checkApiKey() {
+            const key = localStorage.getItem("gemini_api_key");
+            if (!key) {
+                document.getElementById("apiKeyModal").classList.remove("hidden");
+            }
+        }
+
+        function saveApiKey() {
+            const val = document.getElementById("apiKeyInput").value.trim();
+            if (val) {
+                localStorage.setItem("gemini_api_key", val);
+                document.getElementById("apiKeyModal").classList.add("hidden");
+            }
+        }
+
+        function clearApiKey() {
+            localStorage.removeItem("gemini_api_key");
+            document.getElementById("apiKeyModal").classList.remove("hidden");
+        }
+
+        function cycleTheme() {
+            themeIndex = (themeIndex + 1) % themes.length;
+            const nextTheme = themes[themeIndex];
+            document.documentElement.setAttribute("data-theme", nextTheme.id);
+            document.getElementById("themeName").innerText = nextTheme.name;
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("-translate-x-full");
+        }
+
+        function selectTopic(topicName) {
+            currentTopic = topicName;
+            document.getElementById("activeTopicLabel").innerText = `🎯 Target Node: ${topicName}`;
+            if (window.innerWidth < 768) toggleSidebar();
+            
+            // Clear outputs on target selection swap overrides
+            document.getElementById("theoryOutput").innerText = "Ready to generate structural lecture data...";
+            document.getElementById("practicalOutput").innerText = "Ready to construct system implementation guidance matrix parameters...";
+            document.getElementById("examOutput").innerText = "Ready to compile custom mock tests...";
+        }
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+            document.querySelectorAll(".tab-view").forEach(view => view.classList.add("hidden"));
+            
+            document.getElementById(`tab-${tabId}`).classList.add("active");
+            document.getElementById(`view-${tabId}`).classList.remove("hidden");
+        }
+
+        // UNIVERSAL COMPLIANT GEMINI LLM INTERACTION GATEWAY PIPELINE
+        async function queryGemini(promptText, outputElementId) {
+            const key = localStorage.getItem("gemini_api_key");
+            if (!key) return alert("Missing secure authentication framework. Apply API key configurations.");
+            
+            const targetOutput = document.getElementById(outputElementId);
+            targetOutput.innerText = "Processing prompt variables via cloud orchestration pipeline...";
+            
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: promptText }] }]
+                    })
+                });
+                const data = await response.json();
+                const processedText = data.candidates[0].content.parts[0].text;
+                targetOutput.innerText = processedText;
+            } catch (err) {
+                targetOutput.innerText = `API Gateway Pipeline Failure Connection Breakdown: ${err.message}`;
+            }
+        }
+
+        function fetchTheory() {
+            if (!currentTopic) return alert("Select target context component tree node first.");
+            const prompt = `You are an expert NSQF vocational professor guiding a student in IT-ITeS (Information Technology Enabled Services). 
+            Generate a concise, interactive, and beautifully structured Theory Lesson with crystal-clear explanations, real-world industry examples, and core points to memorize for this topic: "${currentTopic}". Use bolding and bullet points to make it readable on a mobile screen.`;
+            queryGemini(prompt, "theoryOutput");
+        }
+
+        function fetchPractical() {
+            if (!currentTopic) return alert("Select target context component tree node first.");
+            const prompt = `You are an expert technical evaluator guiding an IT-ITeS student through their Practical Portfolio exam (70 Marks total). 
+            Generate a detailed step-by-step practical laboratory exercise and corporate implementation checklist for this topic: "${currentTopic}". Include exact procedural methods, data Entry steps using spreadsheets or Word Processors where appropriate, and specific evaluation metrics.`;
+            queryGemini(prompt, "practicalOutput");
+        }
+
+        function fetchExam() {
+            if (!currentTopic) return alert("Select target context component tree node first.");
+            const prompt = `You are an NSQF IT-ITeS external examiner. Create a comprehensive, realistic mock exam module for the topic: "${currentTopic}". 
+            Include:
+            1. 3 Multiple Choice Questions (MCQs) with answers explained.
+            2. 2 Descriptive Short-Answer Questions.
+            3. 1 Interactive Viva-Voce situational scenario where you describe an industry challenge and ask how they would solve it.`;
+            queryGemini(prompt, "examOutput");
+        }
+
+        async function sendChatMessage() {
+            const query = document.getElementById("chatInput").value.trim();
+            if (!query) return;
+            if (!currentTopic) return alert("Select target context component tree node to context-bind AI communications engine.");
+
+            const displayConsole = document.getElementById("chatResponse");
+            displayConsole.classList.remove("hidden");
+            displayConsole.innerText = "Query processing underway...";
+            document.getElementById("chatInput").value = "";
+
+            const key = localStorage.getItem("gemini_api_key");
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: `Regarding the IT-ITeS curriculum topic "${currentTopic}", provide a clear, concise, professional answer to this student question: "${query}"` }] }]
+                    })
+                });
+                const data = await response.json();
+                displayConsole.innerText = data.candidates[0].content.parts[0].text;
+            } catch (err) {
+                displayConsole.innerText = `Error: ${err.message}`;
+            }
+        }
+
+        // SANDBOX MODULE 1: REGIONAL SCRIPT SYNTAX CHECKER
+        async function verifyRegionalScript() {
+            const dataText = document.getElementById("regionalInput").value.trim();
+            if (!dataText) return alert("Type script sample for evaluation analysis.");
+            
+            const key = localStorage.getItem("gemini_api_key");
+            alert("Analyzing script content syntax layout formatting...");
+            
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: `Analyze the following Bengali or Assamese script text for typing structure accuracy, font processing, or syntax standard matching appropriate for an IT-ITeS office deployment data entry task: "${dataText}". Give brief actionable feedback.` }] }]
+                    })
+                });
+                const data = await response.json();
+                alert(`Analysis Results:\n\n${data.candidates[0].content.parts[0].text}`);
+            } catch(e) { alert("Analysis failed."); }
+        }
+
+        // SANDBOX MODULE 2: WEB SPEECH VOICE CONTROLLER PIPELINE
+        function initSpeechRecognition() {
+            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (window.SpeechRecognition) {
+                voiceRecognition = new SpeechRecognition();
+                voiceRecognition.continuous = true;
+                voiceRecognition.interimResults = false;
+                voiceRecognition.lang = 'en-IN'; // Default setup optimizing localized dialect processing
+
+                voiceRecognition.onresult = function(event) {
+                    const currentResultIndex = event.resultIndex;
+                    const textTranscript = event.results[currentResultIndex][0].transcript;
+                    document.getElementById("voiceTranscript").innerText = `Transcribed Vocal Input: "${textTranscript}"`;
+                    evaluateVoiceResponse(textTranscript);
+                };
+
+                voiceRecognition.onerror = function() {
+                    document.getElementById("voiceTranscript").innerText = "Voice interface transmission error.";
+                };
+            } else {
+                document.getElementById("voiceTranscript").innerText = "Native Speech Engine framework unsupported on this host layout configuration environment.";
+            }
+        }
+
+        function startVoiceRoleplay() {
+            if (!voiceRecognition) return alert("Speech engine framework absent.");
+            if (isRecording) return;
+            isRecording = true;
+            voiceRecognition.start();
+            document.getElementById("voiceTranscript").innerText = "Voice channel established. Speak customer response statement scripts clearly now...";
+        }
+
+        function stopVoiceRoleplay() {
+            if (!voiceRecognition || !isRecording) return;
+            isRecording = false;
+            voiceRecognition.stop();
+            document.getElementById("voiceTranscript").innerText = "Voice channel closed. Simulation suspended.";
+        }
+
+        async function evaluateVoiceResponse(speechText) {
+            const key = localStorage.getItem("gemini_api_key");
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: `As a Domestic CRM Voice QA reviewer, evaluate this audio transcription of an outbound call handler interaction: "${speechText}". Assess grammar, customer tone empathy parameters, clarity index metrics, and call center compliance parameters.` }] }]
+                    })
+                });
+                const data = await response.json();
+                alert(`Voice Quality Review Assessment Matrix:\n\n${data.candidates[0].content.parts[0].text}`);
+            } catch(e) { console.log(e); }
+        }
+
+        // SANDBOX MODULE 3: AUTOMATED CRM CRM TICKET INTEGRITY EVALUATOR
+        async function submitCRMTicket() {
+            const targetCustomer = document.getElementById("ticketCustomer").value.trim();
+            const chosenPriority = document.getElementById("ticketPriority").value;
+            const coreIssue = document.getElementById("ticketIssue").value.trim();
+            
+            if(!targetCustomer || !coreIssue) return alert("Populate ticket registry fields completely before attempting database commit emulation.");
+            const key = localStorage.getItem("gemini_api_key");
+            
+            alert("Submitting ticket package to processing pipeline engine arrays...");
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: `Evaluate this customer support database entry logged by an IT-ITeS agent. Customer: ${targetCustomer}, Priority Level: ${chosenPriority}, Scenario Issue Notes: "${coreIssue}". Is this professional, concise, accurately categorized, and ready for escalation arrays? Give quick, strict feedback.` }] }]
+                    })
+                });
+                const data = await response.json();
+                alert(`CRM System Ticket Verification Report:\n\n${data.candidates[0].content.parts[0].text}`);
+            } catch(e) { alert("Ticket verification error."); }
+        }
+    </script>
+</body>
+</html>
