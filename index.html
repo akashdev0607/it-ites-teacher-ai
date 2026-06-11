@@ -1,209 +1,260 @@
+```html
 <!DOCTYPE html>
-<html lang="en" data-theme="light-default">
+<html lang="en" data-theme="light-default" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IT-ITeS AI Teacher Tool</title>
+    <title>IT-ITeS AI Teacher Tool - NCERT Class XI Edition</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="theme-color" content="#2563eb">
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIklULUFUZVMgQUkgVGVhY2hlciIsCiAgInNob3J0X25hbWUiOiAiQUkgVGVhY2hlciIsCiAgInNob3J0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZmZmZmZmIiwKICAidGhlbWVfY29sb3IiOiAiIzI1NjNlYiIKfQ==">
+
+    <!-- Premium Google Fonts Integration -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <style>
         /* CSS Theme Matrix configuration */
-        :root[data-theme="light-default"] { --bg: #ffffff; --surface: #f3f4f6; --text: #1f2937; --primary: #2563eb; --primary-hover: #1d4ed8; --accent: #3b82f6; }
-        :root[data-theme="light-sepia"] { --bg: #fdf6e3; --surface: #eee8d5; --text: #657b83; --primary: #b58900; --primary-hover: #93a1a1; --accent: #cb4b16; }
-        :root[data-theme="light-mint"] { --bg: #f0fdf4; --surface: #dcfce7; --text: #166534; --primary: #15803d; --primary-hover: #166534; --accent: #22c55e; }
-        :root[data-theme="light-frost"] { --bg: #f8fafc; --surface: #e2e8f0; --text: #334155; --primary: #0284c7; --primary-hover: #0369a1; --accent: #38bdf8; }
-        :root[data-theme="light-pink"] { --bg: #fff5f7; --surface: #ffe4e6; --text: #881337; --primary: #db2777; --primary-hover: #be185d; --accent: #f472b6; }
+        :root[data-theme="light-default"] { --bg: #ffffff; --surface: #f8fafc; --text: #0f172a; --primary: #2563eb; --primary-hover: #1d4ed8; --accent: #3b82f6; --border: rgba(15, 23, 42, 0.08); }
+        :root[data-theme="light-sepia"] { --bg: #fbf6e9; --surface: #f4edd8; --text: #433422; --primary: #b58900; --primary-hover: #8c6b00; --accent: #cb4b16; --border: rgba(67, 52, 34, 0.1); }
+        :root[data-theme="light-mint"] { --bg: #f6fdf9; --surface: #e6f6ee; --text: #114126; --primary: #059669; --primary-hover: #047857; --accent: #10b981; --border: rgba(17, 65, 38, 0.1); }
+        :root[data-theme="light-frost"] { --bg: #f4fafd; --surface: #e0f2fe; --text: #0b3c5d; --primary: #0284c7; --primary-hover: #0369a1; --accent: #38bdf8; --border: rgba(11, 60, 93, 0.1); }
+        :root[data-theme="light-pink"] { --bg: #fffbfd; --surface: #fce7f3; --text: #500732; --primary: #db2777; --primary-hover: #be185d; --accent: #f472b6; --border: rgba(80, 7, 50, 0.1); }
         
-        :root[data-theme="dark-cyberpunk"] { --bg: #0f172a; --surface: #1e293b; --text: #f8fafc; --primary: #06b6d4; --primary-hover: #0891b2; --accent: #22d3ee; }
-        :root[data-theme="dark-oled"] { --bg: #000000; --surface: #111111; --text: #ffffff; --primary: #ffffff; --primary-hover: #cccccc; --accent: #a855f7; }
-        :root[data-theme="dark-dracula"] { --bg: #282a36; --surface: #44475a; --text: #f8f8f2; --primary: #ff79c6; --primary-hover: #bd93f9; --accent: #50fa7b; }
-        :root[data-theme="dark-ocean"] { --bg: #0f1d2a; --surface: #1a3146; --text: #e2e8f0; --primary: #14b8a6; --primary-hover: #0d9488; --accent: #2dd4bf; }
-        :root[data-theme="dark-mono"] { --bg: #18181b; --surface: #27272a; --text: #f4f4f5; --primary: #fafafa; --primary-hover: #e4e4e7; --accent: #a1a1aa; }
+        :root[data-theme="dark-cyberpunk"] { --bg: #090d16; --surface: #131b2e; --text: #f1f5f9; --primary: #06b6d4; --primary-hover: #0891b2; --accent: #22d3ee; --border: rgba(241, 245, 249, 0.08); }
+        :root[data-theme="dark-oled"] { --bg: #000000; --surface: #0a0a0a; --text: #ffffff; --primary: #ffffff; --primary-hover: #e5e5e5; --accent: #a855f7; --border: rgba(255, 255, 255, 0.12); }
+        :root[data-theme="dark-dracula"] { --bg: #1e1f29; --surface: #2d2f3f; --text: #f8f8f2; --primary: #ff79c6; --primary-hover: #f15cb6; --accent: #50fa7b; --border: rgba(248, 248, 242, 0.1); }
+        :root[data-theme="dark-ocean"] { --bg: #0b131f; --surface: #122135; --text: #e2e8f0; --primary: #14b8a6; --primary-hover: #0d9488; --accent: #2dd4bf; --border: rgba(226, 232, 240, 0.08); }
+        :root[data-theme="dark-mono"] { --bg: #121212; --surface: #1e1e1e; --text: #ededed; --primary: #f5f5f5; --primary-hover: #d4d4d4; --accent: #888888; --border: rgba(237, 232, 232, 0.1); }
 
-        body { background-color: var(--bg); color: var(--text); transition: all 0.2s ease; }
-        .surface-card { background-color: var(--surface); }
-        .btn-primary { background-color: var(--primary); color: var(--bg); }
-        .btn-primary:hover { background-color: var(--primary-hover); }
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            transition: background-color 0.4s ease, color 0.4s ease; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 13px;
+        }
+
+        /* Typography Styling Engine */
+        .font-header { font-family: 'Space Grotesk', sans-serif; }
+        .font-editorial { font-family: 'Lora', serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        .surface-card { background-color: var(--surface); border-color: var(--border); }
+        .btn-primary { background-color: var(--primary); color: var(--bg); transition: background-color 0.2s, transform 0.1s; }
+        .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
+        .btn-primary:active { transform: translateY(0); }
         .text-accent { color: var(--accent); }
         .border-accent { border-color: var(--accent); }
         
-        .tab-btn.active { border-bottom: 3px solid var(--primary); font-weight: bold; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+        .tab-btn { font-family: 'Space Grotesk', sans-serif; }
+        .tab-btn.active { border-bottom: 2px solid var(--primary); font-weight: 700; color: var(--primary); }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 9px; opacity: 0.7; }
+
+        /* Modern Transition Overlay Wave Element */
+        .wave-transition {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 9999;
+            transition: transform 0.6s cubic-bezier(0.1, 0.8, 0.25, 1);
+            width: 2px;
+            height: 2px;
+        }
+
+        /* Custom alert transitions */
+        .alert-entry { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     </style>
 </head>
-<body class="h-screen flex flex-col overflow-hidden antialiased font-sans pb-16 md:pb-0 relative">
+<body class="h-screen flex flex-col overflow-hidden antialiased pb-16 md:pb-0 relative select-none">
 
-    <div id="apiKeyModal" class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50 hidden">
-        <div class="surface-card p-6 rounded-2xl max-w-md w-full border border-accent shadow-2xl">
-            <h2 class="text-xl font-bold mb-2">🔑 Configure Gemini AI</h2>
-            <p class="text-sm opacity-80 mb-4">Please input your Google Gemini API Key to initialize your Personal IT-ITeS Educator.</p>
-            <input type="password" id="apiKeyInput" placeholder="AIzaSy..." class="w-full p-3 rounded-xl bg-white/10 border border-neutral-500 mb-4 text-sm focus:outline-none focus:border-accent">
-            <button onclick="saveApiKey()" class="w-full btn-primary py-3 rounded-xl font-bold transition-all">Launch Workspace</button>
+    <!-- Theme Transition Color Wave -->
+    <div id="themeWave" class="wave-transition"></div>
+
+    <!-- Reusable Compact Custom Notification Component -->
+    <div id="customAlert" class="fixed top-4 right-4 left-4 md:left-auto md:w-80 p-3.5 rounded-lg shadow-xl border bg-slate-900 text-white z-50 transform translate-y-[-150%] alert-entry flex flex-col gap-1.5">
+        <div class="flex items-center justify-between">
+            <span id="alertTitle" class="font-header font-bold text-xs text-amber-400 tracking-wide uppercase">Notification</span>
+            <button onclick="closeAlert()" class="text-white hover:opacity-75 text-[11px] p-0.5">✕</button>
         </div>
+        <p id="alertBody" class="text-[11px] opacity-80 leading-relaxed font-sans"></p>
     </div>
 
-    <header class="surface-card border-b border-neutral-300/20 px-4 py-3 flex justify-between items-center z-10">
+    <header class="surface-card border-b px-4 py-2 flex justify-between items-center z-10 shadow-xs">
         <div class="flex items-center gap-2">
-            <span class="text-2xl">🤖</span>
+            <span class="text-xl">🤖</span>
             <div>
-                <h1 class="text-sm font-bold tracking-tight">IT-ITeS AI EDU-ENGINE</h1>
-                <p class="text-xs opacity-60">NSQF Skill Curriculum Platform</p>
+                <h1 class="font-header text-xs font-bold tracking-tight uppercase">IT-ITeS AI EDU-ENGINE</h1>
+                <p class="text-[10px] opacity-60">NCERT Class XI - Domestic CRM Voice (SSC/Q2210)</p>
             </div>
         </div>
         <div class="flex items-center gap-2">
-            <button onclick="cycleTheme()" class="p-2 rounded-xl border border-neutral-400/30 text-xs flex items-center gap-1 font-semibold hover:opacity-80">
-                🎨 Theme: <span id="themeName" class="text-accent uppercase">Default Light</span>
+            <!-- Ripple/Wave event is captured on click event dynamically -->
+            <button onclick="cycleTheme(event)" class="p-1.5 rounded-lg border border-neutral-400/20 text-[10px] flex items-center gap-1 font-semibold hover:opacity-80 transition-all cursor-pointer">
+                🎨 Theme: <span id="themeName" class="text-accent font-header uppercase font-bold">Default Light</span>
             </button>
-            <button onclick="clearApiKey()" class="p-2 rounded-xl text-xs bg-red-500/10 text-red-400 font-medium hover:bg-red-500/20">Reset API</button>
         </div>
     </header>
 
     <div class="flex-1 flex overflow-hidden relative">
 
-        <aside id="sidebar" class="w-72 surface-card border-r border-neutral-300/20 flex flex-col overflow-y-auto transform transition-transform duration-300 absolute md:static z-20 h-full">
-            <div class="p-4 font-bold text-xs uppercase opacity-50 tracking-wider">Course Syllabus Tree</div>
+        <!-- Sidebar Navigation Tree -->
+        <aside id="sidebar" class="w-64 surface-card border-r flex flex-col overflow-y-auto transform -translate-x-full md:translate-x-0 transition-transform duration-300 absolute md:static z-20 h-full">
+            <div class="p-3 font-header font-bold text-[10px] uppercase opacity-50 tracking-wider">NCERT Textbook Units</div>
             
-            <div class="px-2 mb-4">
-                <div class="p-2 text-xs font-bold bg-blue-500/10 rounded text-accent flex justify-between">
-                    <span>📘 PART A: Employability Skills</span>
-                    <span>10 Marks</span>
+            <div class="px-2 mb-3">
+                <div class="p-2 text-[10px] font-header font-bold bg-blue-500/10 rounded-md text-accent flex justify-between">
+                    <span>📘 Textbook Chapters</span>
+                    <span>Class XI</span>
                 </div>
-                <div class="space-y-1 mt-1 text-sm">
-                    <button id="node-part-a-u1" onclick="selectTopic('Part A - Unit 1: Communication Skills')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Unit 1: Communication Methods</button>
-                    <button id="node-part-a-u2" onclick="selectTopic('Part A - Unit 2: Self-management Skills')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Unit 2: Self-management & Discipline</button>
-                    <button id="node-part-a-u3" onclick="selectTopic('Part A - Unit 3: Basic ICT Skills')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Unit 3: Operating Systems & Files</button>
-                    <button id="node-part-a-u4" onclick="selectTopic('Part A - Unit 4: Entrepreneurial Skills')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Unit 4: Entrepreneurship & Markets</button>
-                    <button id="node-part-a-u5" onclick="selectTopic('Part A - Unit 5: Green Skills')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Unit 5: Sustainable Development</button>
-                </div>
-            </div>
-
-            <div class="px-2 mb-4">
-                <div class="p-2 text-xs font-bold bg-green-500/10 rounded text-accent flex justify-between">
-                    <span>🛠️ PART B: Domestic CRM Voice</span>
-                    <span>20 Marks</span>
-                </div>
-                <div class="space-y-1 mt-1 text-sm">
-                    <button id="node-part-b-u1" onclick="selectTopic('Part B - Unit 1: Introduction to the IT-ITeS Industry')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Unit 1: Indian BPO Structure</button>
-                    <button id="node-part-b-u2" onclick="selectTopic('Part B - Unit 2: Training of CRM Domestic Voice')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Unit 2: Query Resolution Roles</button>
-                    <button id="node-part-b-u3" onclick="selectTopic('Part B - Unit 3: Making Outbound Calls')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Unit 3: Customer Vocabulary</button>
-                    <button id="node-part-b-u4" onclick="selectTopic('Part B - Unit 4: Using CRM Applications')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Unit 4: Logging Systems & Software</button>
-                    <button id="node-part-b-u5" onclick="selectTopic('Part B - Unit 5: Work Management')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Unit 5: Schedules & Ethics</button>
-                    <button id="node-part-b-u6" onclick="selectTopic('Part B - Unit 6: Workplace Safety & Hazards')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Unit 6: Tech Office Health Guidelines</button>
+                <div class="space-y-0.5 mt-1">
+                    <button id="node-u1" onclick="selectTopic('Unit 1: Introduction to IT-ITeS Industry')" class="w-full text-left p-1.5 rounded-md hover:bg-neutral-500/5 text-[11px] transition-all cursor-pointer">Unit 1: Introduction to IT-ITeS Industry</button>
+                    <button id="node-u2" onclick="selectTopic('Unit 2: CRM Domestic Voice Representative Training')" class="w-full text-left p-1.5 rounded-md hover:bg-neutral-500/5 text-[11px] transition-all cursor-pointer">Unit 2: CRM Representative Training</button>
+                    <button id="node-u3" onclick="selectTopic('Unit 3: Outbound Calls: Interacting with Customer')" class="w-full text-left p-1.5 rounded-md hover:bg-neutral-500/5 text-[11px] transition-all cursor-pointer">Unit 3: Outbound Interactions</button>
+                    <button id="node-u4" onclick="selectTopic('Unit 4: Using CRM Application: FreeCRM')" class="w-full text-left p-1.5 rounded-md hover:bg-neutral-500/5 text-[11px] transition-all cursor-pointer">Unit 4: Using CRM Apps (FreeCRM)</button>
+                    <button id="node-u5" onclick="selectTopic('Unit 5: Work Management')" class="w-full text-left p-1.5 rounded-md hover:bg-neutral-500/5 text-[11px] transition-all cursor-pointer">Unit 5: Work Management & BPO</button>
+                    <button id="node-u6" onclick="selectTopic('Unit 6: Workplace Safety and Hazards')" class="w-full text-left p-1.5 rounded-md hover:bg-neutral-500/5 text-[11px] transition-all cursor-pointer">Unit 6: Workplace Safety & Hazards</button>
                 </div>
             </div>
 
-            <div class="px-2 mb-4">
-                <div class="p-2 text-xs font-bold bg-purple-500/10 rounded text-accent flex justify-between">
-                    <span>💻 PART C: Practical Applications</span>
+            <div class="px-2 mb-3">
+                <div class="p-2 text-[10px] font-header font-bold bg-purple-500/10 rounded-md text-accent flex justify-between">
+                    <span>💻 Practical Sandbox Focus</span>
                     <span>70 Marks</span>
                 </div>
-                <div class="space-y-1 mt-1 text-sm">
-                    <button id="node-part-c-u1" onclick="selectTopic('Part C - Application Focus: Word Processing & Spreadsheets')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Word Processing & Spreadsheets</button>
-                    <button id="node-part-c-u2" onclick="selectTopic('Part C - Focus: Regional Language Processing')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Bengali / Assamese Scripts</button>
-                    <button id="node-part-c-u3" onclick="selectTopic('Part C - Mock Sandbox: Project Portfolio & Viva')" class="w-full text-left p-2 rounded hover:bg-white/5 text-xs transition-all">Business Portfolio & Viva Prep</button>
+                <div class="space-y-0.5 mt-1">
+                    <button id="node-prac-1" onclick="selectTopic('Practical Lab Focus: Word Processing & Spreadsheets')" class="w-full text-left p-1.5 rounded-md hover:bg-neutral-500/5 text-[11px] transition-all cursor-pointer">Word Processing & Spreadsheets Labs</button>
+                    <button id="node-prac-2" onclick="selectTopic('Practical Lab Focus: Regional Language Data Entry')" class="w-full text-left p-1.5 rounded-md hover:bg-neutral-500/5 text-[11px] transition-all cursor-pointer">Regional Scripts (Bengali/Assamese)</button>
+                    <button id="node-prac-3" onclick="selectTopic('Practical Lab Focus: Viva Voce & Portfolio')" class="w-full text-left p-1.5 rounded-md hover:bg-neutral-500/5 text-[11px] transition-all cursor-pointer">Business Portfolio & Viva Prep</button>
                 </div>
             </div>
         </aside>
 
-        <main class="flex-1 flex flex-col min-w-0 overflow-hidden">
-            <div class="p-4 border-b border-neutral-300/10 flex items-center justify-between bg-black/5">
-                <button onclick="toggleSidebar()" class="md:hidden p-2 rounded surface-card text-xs border border-neutral-500/20">☰ Menu</button>
-                <div class="text-xs font-semibold text-accent truncate max-w-[60%]" id="activeTopicLabel">Select a Syllabus Topic to Start</div>
-                <div id="progressTracker" class="text-[10px] bg-emerald-500/20 text-emerald-500 px-2 py-1 rounded-full font-bold">💾 Auto-Save</div>
+        <main class="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+            <div class="p-3 border-b flex items-center justify-between bg-black/5">
+                <button onclick="toggleSidebar()" class="md:hidden p-1.5 rounded surface-card text-[11px] border border-neutral-500/20">☰ Chapters</button>
+                <div class="text-[11px] font-bold text-accent truncate max-w-[65%] font-header tracking-wide uppercase" id="activeTopicLabel">Select a Textbook Chapter to Begin</div>
+                <div id="progressTracker" class="text-[9px] bg-emerald-500/15 text-emerald-500 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider font-header">Auto-Saved</div>
             </div>
 
-            <div class="flex border-b border-neutral-300/10 text-xs sm:text-sm">
-                <button onclick="switchTab('theory')" id="tab-theory" class="tab-btn active flex-1 py-3 text-center transition-all">📖 Theory</button>
-                <button onclick="switchTab('practical')" id="tab-practical" class="tab-btn flex-1 py-3 text-center transition-all">🛠️ Lab Sandbox</button>
-                <button onclick="switchTab('exam')" id="tab-exam" class="tab-btn flex-1 py-3 text-center transition-all">📝 Assessment</button>
+            <div class="flex border-b text-[12px] bg-black/2 font-semibold">
+                <button onclick="switchTab('theory')" id="tab-theory" class="tab-btn active flex-1 py-2 text-center transition-all cursor-pointer">📖 Theory Guide</button>
+                <button onclick="switchTab('practical')" id="tab-practical" class="tab-btn flex-1 py-2 text-center transition-all cursor-pointer">🛠️ Lab Sandbox</button>
+                <button onclick="switchTab('exam')" id="tab-exam" class="tab-btn flex-1 py-2 text-center transition-all cursor-pointer">📝 Assess Unit</button>
             </div>
 
+            <!-- Content Area with tighter layout sizes -->
             <div class="flex-1 p-4 overflow-y-auto space-y-4 pb-24">
                 
                 <div id="view-theory" class="tab-view space-y-4">
-                    <div class="surface-card p-4 sm:p-6 rounded-2xl border border-neutral-400/20 shadow-sm">
-                        <h3 class="text-base font-bold mb-1">Interactive Lectures & Summarized Theory</h3>
-                        <p class="text-xs opacity-75 mb-4">Click below to fetch custom theory breakdown dynamically based on your curriculum rules.</p>
-                        <button onclick="fetchTheory()" class="btn-primary px-4 py-2 rounded-xl text-xs font-bold shadow-md">✨ Generate Concept Study Guide</button>
-                        <div id="theoryOutput" class="mt-6 text-sm leading-relaxed whitespace-pre-line border-t border-neutral-400/20 pt-4 opacity-90">Your generated lesson plan parameters will load right here...</div>
+                    <div class="surface-card p-4 sm:p-5 rounded-xl border shadow-xs">
+                        <h3 class="font-editorial text-base font-bold text-accent mb-0.5">NCERT Digital Interactive Study Notes</h3>
+                        <p class="text-[11px] opacity-75 mb-3.5">Produce textbook summaries, real BPO instances, and definitions synchronized with NCERT standards.</p>
+                        <button onclick="fetchTheory()" class="btn-primary px-3.5 py-1.5 rounded-lg text-xs font-bold font-header shadow-sm cursor-pointer">✨ Generate Study Guide</button>
+                        <div id="theoryOutput" class="mt-4 text-[12px] leading-relaxed whitespace-pre-line border-t border-neutral-500/10 pt-3 opacity-90 font-sans">NCERT CRM representative study modules will load dynamically here...</div>
                     </div>
                 </div>
 
                 <div id="view-practical" class="tab-view space-y-4 hidden">
-                    <div class="surface-card p-4 sm:p-6 rounded-2xl border border-neutral-400/20 shadow-sm">
-                        <h3 class="text-base font-bold mb-1">Automated Operational Assignment Engine</h3>
-                        <p class="text-xs opacity-75 mb-4">Generate step-by-step guidance parameters matching the NSQF practical module criteria.</p>
-                        <button onclick="fetchPractical()" class="btn-primary px-4 py-2 rounded-xl text-xs font-bold shadow-md">🚀 Generate Laboratory Objective</button>
-                        <div id="practicalOutput" class="mt-6 text-sm leading-relaxed whitespace-pre-line border-t border-neutral-400/20 pt-4 mb-4">Practical labs, blueprints, and data pipelines populate here...</div>
+                    <div class="surface-card p-4 sm:p-5 rounded-xl border shadow-xs">
+                        <h3 class="font-editorial text-base font-bold text-accent mb-0.5">NCERT Practical Log Book Sandbox</h3>
+                        <p class="text-[11px] opacity-75 mb-3.5">Generate steps for your practical portfolio evaluations (70 marks total weightage).</p>
+                        <button onclick="fetchPractical()" class="btn-primary px-3.5 py-1.5 rounded-lg text-xs font-bold font-header shadow-sm cursor-pointer">🚀 Generate Lab Procedure</button>
+                        <div id="practicalOutput" class="mt-4 text-[12px] leading-relaxed whitespace-pre-line border-t border-neutral-500/10 pt-3 mb-3.5 opacity-90 font-sans">Lab execution scenarios, checklists, and templates output here...</div>
                         
-                        <div class="border border-neutral-400/20 rounded-xl p-4 mt-4 bg-black/5">
-                            <h4 class="text-xs font-bold uppercase tracking-wider mb-2 text-accent">📍 Regional Script Sandbox (Bengali / Assamese Processing)</h4>
-                            <textarea id="regionalInput" rows="3" placeholder="Practice typing your Bengali or Assamese text structures here..." class="w-full p-3 rounded-lg bg-white/5 border border-neutral-500 text-xs focus:outline-none focus:border-accent mb-2"></textarea>
-                            <button onclick="verifyRegionalScript()" class="px-3 py-1.5 bg-purple-500 text-white rounded-lg text-xs font-semibold hover:bg-purple-600 transition-all">Verify Native Script Layout</button>
+                        <!-- Mini Regional Typing Module -->
+                        <div class="border border-neutral-500/15 rounded-lg p-3 bg-black/3">
+                            <h4 class="text-[10px] font-bold uppercase font-header tracking-wider mb-1.5 text-accent">📍 Regional Script Sandbox (Bengali / Assamese Data Entry)</h4>
+                            <textarea id="regionalInput" rows="2" placeholder="Practice typing Assamese/Bengali scripts inside this input container..." class="w-full p-2 rounded bg-white/5 border border-neutral-400/30 text-xs focus:outline-none focus:border-accent mb-2 font-sans"></textarea>
+                            <button onclick="verifyRegionalScript()" class="px-2.5 py-1 bg-purple-600 text-white rounded text-[10px] font-semibold hover:bg-purple-700 transition-all cursor-pointer font-header uppercase">Verify Script Format</button>
                         </div>
 
-                        <div class="border border-neutral-400/20 rounded-xl p-4 mt-4 bg-black/5">
-                            <h4 class="text-xs font-bold uppercase tracking-wider mb-2 text-accent">📞 Interactive CRM Outbound Voice Roleplay</h4>
-                            <p class="text-xs opacity-70 mb-2">Engage the customer simulation script processing via voice inputs.</p>
+                        <!-- Voice roleplay element -->
+                        <div class="border border-neutral-500/15 rounded-lg p-3 mt-3 bg-black/3">
+                            <h4 class="text-[10px] font-bold uppercase font-header tracking-wider mb-1 text-accent">📞 Interactive CRM Outbound Audio Simulation</h4>
+                            <p class="text-[10px] opacity-70 mb-2">Practice roleplays (Unit 3 BPO vocabulary & Unit 5 recovery campaigns).</p>
                             <div class="flex gap-2">
-                                <button onclick="startVoiceRoleplay()" class="px-3 py-1.5 bg-green-600 text-white rounded-lg text-xs font-semibold hover:bg-green-700 transition-all">🎙️ Start Voice Call</button>
-                                <button onclick="stopVoiceRoleplay()" class="px-3 py-1.5 bg-red-600 text-white rounded-lg text-xs font-semibold hover:bg-red-700 transition-all">End Call</button>
+                                <button onclick="startVoiceRoleplay()" class="px-2.5 py-1 bg-emerald-600 text-white rounded text-[10px] font-semibold hover:bg-emerald-700 transition-all cursor-pointer font-header uppercase">🎙️ Open Audio</button>
+                                <button onclick="stopVoiceRoleplay()" class="px-2.5 py-1 bg-red-600 text-white rounded text-[10px] font-semibold hover:bg-red-700 transition-all cursor-pointer font-header uppercase">Close Channel</button>
                             </div>
-                            <div id="voiceTranscript" class="text-xs italic mt-2 p-2 bg-black/10 rounded min-h-[30px] opacity-80">Voice pipeline connection standby state...</div>
+                            <div id="voiceTranscript" class="text-[10px] italic mt-1.5 p-2 bg-black/10 rounded-md opacity-80 font-mono">Audio capture pipeline offline...</div>
                         </div>
 
-                        <div class="border border-neutral-400/20 rounded-xl p-4 mt-4 bg-black/5">
-                            <h4 class="text-xs font-bold uppercase tracking-wider mb-2 text-accent">🗂️ Simulated CRM Ticket Entry Automation Suite</h4>
+                        <!-- Ticket tracker mockup -->
+                        <div class="border border-neutral-500/15 rounded-lg p-3 mt-3 bg-black/3">
+                            <h4 class="text-[10px] font-bold uppercase font-header tracking-wider mb-1.5 text-accent">🗂️ Unit 4: Simulated FreeCRM Incident Ticket Logs</h4>
                             <div class="grid grid-cols-2 gap-2 mb-2">
-                                <input type="text" id="ticketCustomer" placeholder="Customer Name" class="p-2 rounded bg-white/5 border border-neutral-500 text-xs focus:outline-none">
-                                <select id="ticketPriority" class="p-2 rounded bg-white/5 border border-neutral-500 text-xs focus:outline-none">
+                                <input type="text" id="ticketCustomer" placeholder="Customer Lead Name" class="p-2 rounded bg-white/5 border border-neutral-400/30 text-[11px] focus:outline-none">
+                                <select id="ticketPriority" class="p-2 rounded bg-white/5 border border-neutral-400/30 text-[11px] focus:outline-none">
                                     <option value="Low">Low Priority</option>
                                     <option value="Medium">Medium Priority</option>
                                     <option value="High">Critical Level Escalation</option>
                                 </select>
                             </div>
-                            <textarea id="ticketIssue" rows="2" placeholder="Describe customer query parameters here..." class="w-full p-2 rounded bg-white/5 border border-neutral-500 text-xs focus:outline-none"></textarea>
-                            <button onclick="submitCRMTicket()" class="mt-2 px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-semibold hover:bg-blue-700 transition-all">Log Complaint Ticket Entry</button>
+                            <textarea id="ticketIssue" rows="2" placeholder="Record dispute particulars or queries..." class="w-full p-2 rounded bg-white/5 border border-neutral-400/30 text-[11px] focus:outline-none font-sans"></textarea>
+                            <button onclick="submitCRMTicket()" class="mt-1.5 px-2.5 py-1 bg-blue-600 text-white rounded text-[10px] font-semibold hover:bg-blue-700 transition-all cursor-pointer font-header uppercase">Log Ticket Entry</button>
                         </div>
                     </div>
                 </div>
 
                 <div id="view-exam" class="tab-view space-y-4 hidden">
-                    <div class="surface-card p-4 sm:p-6 rounded-2xl border border-neutral-400/20 shadow-sm">
-                        <h3 class="text-lg font-bold mb-2">Dynamic Simulator Examination Testing Station</h3>
-                        <p class="text-xs opacity-75 mb-4">Generates mock question configurations containing randomized variations built strictly upon NSQF marks layout.</p>
-                        <button onclick="fetchExam()" class="btn-primary px-4 py-2 rounded-xl text-xs font-bold shadow-md">📝 Render Custom Examination Module</button>
-                        <div id="examOutput" class="mt-6 text-sm leading-relaxed whitespace-pre-line border-t border-neutral-400/20 pt-4">Click target trigger button to render examination parameters...</div>
+                    <div class="surface-card p-4 sm:p-5 rounded-xl border shadow-xs">
+                        <h3 class="font-editorial text-base font-bold text-accent mb-0.5">NCERT Mock Evaluation Center</h3>
+                        <p class="text-[11px] opacity-75 mb-3.5">Produce mock questions containing randomized criteria matching current unit guidelines.</p>
+                        <button onclick="fetchExam()" class="btn-primary px-3.5 py-1.5 rounded-lg text-xs font-bold font-header shadow-sm cursor-pointer">📝 Render Chapter Assessment</button>
+                        <div id="examOutput" class="mt-4 text-[12px] leading-relaxed whitespace-pre-line border-t border-neutral-500/10 pt-3 opacity-90 font-sans">Assessments will compile and generate here...</div>
                     </div>
                 </div>
             </div>
 
-            <div class="fixed bottom-0 left-0 right-0 md:absolute border-t border-neutral-400/30 surface-card p-3 z-30 shadow-inner flex flex-col gap-1.5">
-                <div class="flex items-center justify-between">
-                    <span class="text-[11px] font-bold uppercase tracking-wider text-accent flex items-center gap-1">💬 Chat Assistant Console</span>
-                    <button onclick="toggleChatExpand()" id="expandChatBtn" class="text-xs text-accent font-semibold px-2 py-0.5 rounded bg-black/5 hover:bg-black/10">▲ Expand Chat View</button>
+            <!-- Slide-up Dynamic Overlay Panel (Smaller, Cleaner, Compact) -->
+            <div id="floatingChatConsole" class="absolute bottom-0 left-0 right-0 border-t surface-card p-3 z-30 shadow-2xl transform translate-y-full transition-transform duration-300 ease-in-out flex flex-col gap-2 bg-slate-950 text-white rounded-t-2xl max-h-[70%]">
+                <div class="flex items-center justify-between border-b border-white/5 pb-1.5">
+                    <div class="flex flex-col">
+                        <span class="font-header text-[10px] font-bold uppercase tracking-wider text-cyan-400">Connected Chat Assistant</span>
+                        <span id="chatContextTag" class="text-[9px] text-emerald-400 font-mono tracking-tight uppercase">Context: [Global Framework]</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="clearChatHistory()" class="text-[9px] bg-red-500/15 text-red-400 hover:bg-red-500/30 px-2 py-0.5 rounded cursor-pointer">Clear Logs</button>
+                        <button onclick="toggleChatConsole()" class="text-[10px] font-semibold px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 text-white cursor-pointer">✕ Close</button>
+                    </div>
                 </div>
-                <div id="chatResponse" class="hidden text-xs max-h-32 overflow-y-auto p-2.5 rounded-xl bg-black/10 border border-neutral-400/10 whitespace-pre-line leading-relaxed transition-all duration-200"></div>
-                <div class="flex gap-2 items-center">
-                    <input type="text" id="chatInput" placeholder="Ask a question about this chapter..." class="flex-1 p-2.5 rounded-xl bg-white/10 border border-neutral-500 text-xs focus:outline-none focus:border-accent" onkeydown="if(event.key === 'Enter') sendChatMessage()">
-                    <button onclick="sendChatMessage()" class="btn-primary px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md shrink-0">Ask AI</button>
+                
+                <!-- Chat log interface container with JetBrains Mono font details -->
+                <div id="chatHistoryContainer" class="flex-1 overflow-y-auto text-[11px] space-y-2 p-2 bg-black/20 rounded-md min-h-[120px] max-h-[220px]">
+                    <!-- Restored dynamically -->
+                </div>
+
+                <div class="flex gap-2 items-center pt-1">
+                    <input type="text" id="chatInput" placeholder="Ask a targeted question about this chapter..." class="flex-1 p-2 rounded-lg bg-white/5 border border-neutral-700 text-xs text-white placeholder-neutral-400 focus:outline-none focus:border-cyan-400" onkeydown="if(event.key === 'Enter') sendChatMessage()">
+                    <button onclick="sendChatMessage()" class="bg-cyan-500 text-slate-900 px-4 py-2 rounded-lg text-xs font-bold font-header transition-all shadow-md shrink-0 hover:bg-cyan-400 cursor-pointer">Ask</button>
                 </div>
             </div>
+
+            <!-- Rounded Tiny Floating Action Button -->
+            <button onclick="toggleChatConsole()" class="fixed bottom-4 right-4 z-40 p-3 rounded-full bg-cyan-500 text-slate-900 shadow-lg hover:scale-105 transition-transform duration-200 flex items-center justify-center font-bold text-sm cursor-pointer chat-fab">
+                💬 <span class="hidden sm:inline text-[9px] ml-1.5 font-bold tracking-tight uppercase font-header">Ask Assistant</span>
+            </button>
         </main>
     </div>
 
     <script>
+        // Automatic API key runtime definition
+        const apiKey = ""; 
         let currentTopic = "";
         let currentTab = "theory";
-        let isChatExpanded = false;
+        let isChatOpen = false;
         
+        let themeIndex = 0;
+        let voiceRecognition;
+        let isRecording = false;
+
         const themes = [
             { id: "light-default", name: "Default Light" },
             { id: "light-sepia", name: "Sepia Notebook" },
@@ -216,42 +267,80 @@
             { id: "dark-ocean", name: "Nord Ocean" },
             { id: "dark-mono", name: "Monochrome Dark" }
         ];
-        let themeIndex = 0;
-
-        let voiceRecognition;
-        let isRecording = false;
 
         window.onload = function() {
-            checkApiKey();
             initSpeechRecognition();
             updateHistoryUI();
+            hydrateChatHistoryUI();
         };
 
-        function checkApiKey() {
-            const key = localStorage.getItem("gemini_api_key");
-            if (!key) {
-                document.getElementById("apiKeyModal").classList.remove("hidden");
-            }
+        // Custom Compact Notification Banner 
+        function showAlert(title, message) {
+            const alertBox = document.getElementById("customAlert");
+            document.getElementById("alertTitle").innerText = title;
+            document.getElementById("alertBody").innerText = message;
+            alertBox.classList.remove("translate-y-[-150%]");
+            alertBox.classList.add("translate-y-0");
+
+            setTimeout(() => { closeAlert(); }, 4000);
         }
 
-        function saveApiKey() {
-            const val = document.getElementById("apiKeyInput").value.trim();
-            if (val) {
-                localStorage.setItem("gemini_api_key", val);
-                document.getElementById("apiKeyModal").classList.add("hidden");
-            }
+        function closeAlert() {
+            const alertBox = document.getElementById("customAlert");
+            alertBox.classList.remove("translate-y-0");
+            alertBox.classList.add("translate-y-[-150%]");
         }
 
-        function clearApiKey() {
-            localStorage.removeItem("gemini_api_key");
-            document.getElementById("apiKeyModal").classList.remove("hidden");
-        }
+        // Circular sweep transition originating directly from click position
+        function cycleTheme(event) {
+            const themeWave = document.getElementById("themeWave");
+            
+            // Calculate coordinates (default to center if triggered programmatically)
+            const clientX = event ? event.clientX : window.innerWidth / 2;
+            const clientY = event ? event.clientY : window.innerHeight / 2;
 
-        function cycleTheme() {
-            themeIndex = (themeIndex + 1) % themes.length;
-            const nextTheme = themes[themeIndex];
-            document.documentElement.setAttribute("data-theme", nextTheme.id);
-            document.getElementById("themeName").innerText = nextTheme.name;
+            // Instantly transition position metrics
+            themeWave.style.left = `${clientX}px`;
+            themeWave.style.top = `${clientY}px`;
+            
+            // Determine diagonal coverage length for clean wipe
+            const widthDist = Math.max(clientX, window.innerWidth - clientX);
+            const heightDist = Math.max(clientY, window.innerHeight - clientY);
+            const targetRadius = Math.sqrt(Math.pow(widthDist, 2) + Math.pow(heightDist, 2));
+
+            // Set background color of upcoming theme
+            const nextIndex = (themeIndex + 1) % themes.length;
+            const nextTheme = themes[nextIndex];
+            
+            // Temporarily retrieve target bg from hidden sandbox variable or hardcode matrix lookup
+            let waveColor = "#ffffff";
+            if (nextTheme.id.includes("dark")) waveColor = "#0f172a";
+            if (nextTheme.id.includes("sepia")) waveColor = "#fbf6e9";
+            if (nextTheme.id.includes("mint")) waveColor = "#f6fdf9";
+            if (nextTheme.id.includes("frost")) waveColor = "#f4fafd";
+            if (nextTheme.id.includes("pink")) waveColor = "#fffbfd";
+            
+            themeWave.style.backgroundColor = waveColor;
+            
+            // Force reflow
+            themeWave.getBoundingClientRect();
+
+            // Trigger Transition Circular sweep animation
+            themeWave.style.transform = `translate(-50%, -50%) scale(${targetRadius * 1.05})`;
+
+            setTimeout(() => {
+                themeIndex = nextIndex;
+                document.documentElement.setAttribute("data-theme", nextTheme.id);
+                document.getElementById("themeName").innerText = nextTheme.name;
+                
+                // Retract sweeping circle node instantly without transition
+                themeWave.style.transition = 'none';
+                themeWave.style.transform = `translate(-50%, -50%) scale(0)`;
+                // Force reflow
+                themeWave.getBoundingClientRect();
+                // Restore transition
+                themeWave.style.transition = 'transform 0.6s cubic-bezier(0.1, 0.8, 0.25, 1)';
+            }, 600);
         }
 
         function toggleSidebar() {
@@ -259,28 +348,26 @@
             sidebar.classList.toggle("-translate-x-full");
         }
 
-        function toggleChatExpand() {
-            const resBox = document.getElementById("chatResponse");
-            const btn = document.getElementById("expandChatBtn");
-            isChatExpanded = !isChatExpanded;
+        function toggleChatConsole() {
+            const chatConsole = document.getElementById("floatingChatConsole");
+            isChatOpen = !isChatOpen;
             
-            if(isChatExpanded) {
-                resBox.classList.remove("hidden");
-                resBox.style.maxHeight = "240px";
-                btn.innerText = "▼ Collapse Chat View";
+            if (isChatOpen) {
+                chatConsole.classList.remove("translate-y-full");
+                const container = document.getElementById("chatHistoryContainer");
+                container.scrollTop = container.scrollHeight;
             } else {
-                resBox.style.maxHeight = "128px";
-                btn.innerText = "▲ Expand Chat View";
+                chatConsole.classList.add("translate-y-full");
             }
         }
 
-        // AUTO-SAVE RETENTION CORE DATA CONTROLLERS
+        // AUTO-SAVE CONTROLLERS
         function getSavedContent(topic, type) {
-            return localStorage.getItem(`history_${type}_${topic}`) || "";
+            return localStorage.getItem(`ncert_history_${type}_${topic}`) || "";
         }
 
         function saveContent(topic, type, text) {
-            localStorage.setItem(`history_${type}_${topic}`, text);
+            localStorage.setItem(`ncert_history_${type}_${topic}`, text);
             updateHistoryUI();
         }
 
@@ -291,9 +378,9 @@
                 const clickAttr = btn.getAttribute("onclick");
                 if (clickAttr && clickAttr.includes("selectTopic")) {
                     const topicStr = clickAttr.match(/'([^']+)'/)[1];
-                    const trackingTheory = localStorage.getItem(`history_theory_${topicStr}`);
+                    const trackingTheory = localStorage.getItem(`ncert_history_theory_${topicStr}`);
                     if (trackingTheory) {
-                        btn.style.borderLeft = "5px solid #10b981"; // Vibrant green indicator line
+                        btn.style.borderLeft = "4px solid #10b981"; // Sleeker green bar
                         btn.style.paddingLeft = "8px";
                     }
                 }
@@ -303,22 +390,17 @@
         function selectTopic(topicName) {
             currentTopic = topicName;
             document.getElementById("activeTopicLabel").innerText = `🎯 Node: ${topicName}`;
+            document.getElementById("chatContextTag").innerText = `Bound Context: [${topicName}]`;
+            
             if (window.innerWidth < 768) toggleSidebar();
             
-            // AUTOMATIC DATA RETRIEVAL LOGIC
             const cachedTheory = getSavedContent(topicName, "theory");
             const cachedPractical = getSavedContent(topicName, "practical");
             const cachedExam = getSavedContent(topicName, "exam");
 
-            document.getElementById("theoryOutput").innerText = cachedTheory || "Ready to generate structural lecture data...";
-            document.getElementById("practicalOutput").innerText = cachedPractical || "Ready to construct system implementation guidance matrix parameters...";
-            document.getElementById("examOutput").innerText = cachedExam || "Ready to compile custom mock tests...";
-            
-            // Clear past isolated chatbot outputs
-            document.getElementById("chatResponse").classList.add("hidden");
-            document.getElementById("chatResponse").innerText = "";
-            isChatExpanded = false;
-            document.getElementById("expandChatBtn").innerText = "▲ Expand Chat View";
+            document.getElementById("theoryOutput").innerText = cachedTheory || "Ready to construct NCERT Class XI Digital Lesson Notes...";
+            document.getElementById("practicalOutput").innerText = cachedPractical || "Ready to construct specific vocational log activities...";
+            document.getElementById("examOutput").innerText = cachedExam || "Ready to compile assessment assessment modules...";
         }
 
         function switchTab(tabId) {
@@ -330,108 +412,165 @@
             document.getElementById(`view-${tabId}`).classList.remove("hidden");
         }
 
-        // NATIVE GOOGLE GEMINI DISPATCH PIPELINE INTEGRATION
-        async function queryGemini(promptText, outputElementId, storageType) {
-            const key = localStorage.getItem("gemini_api_key");
-            if (!key) return alert("Missing secure authentication framework. Apply Gemini API key configurations.");
+        // CHAT LOG PERSISTENCE CONTROLLERS
+        function getChatLogs() {
+            const logs = localStorage.getItem("ncert_persistent_chat_logs");
+            return logs ? JSON.parse(logs) : [];
+        }
+
+        function saveChatLogItem(sender, message, context) {
+            const logs = getChatLogs();
+            logs.push({ sender, message, context, timestamp: new Date().toLocaleTimeString() });
+            localStorage.setItem("ncert_persistent_chat_logs", JSON.stringify(logs));
+            hydrateChatHistoryUI();
+        }
+
+        function clearChatHistory() {
+            localStorage.removeItem("ncert_persistent_chat_logs");
+            hydrateChatHistoryUI();
+            showAlert("Logs Cleared", "Local session conversation storage reset successfully.");
+        }
+
+        function hydrateChatHistoryUI() {
+            const container = document.getElementById("chatHistoryContainer");
+            const logs = getChatLogs();
             
+            if (logs.length === 0) {
+                container.innerHTML = `<div class="text-center py-4 text-neutral-400 italic font-sans text-[11px]">No message histories logged. Use the text input below to ask contextual items.</div>`;
+                return;
+            }
+            
+            container.innerHTML = logs.map(log => `
+                <div class="p-2 rounded bg-white/5 border-l-2 ${log.sender === 'user' ? 'border-cyan-400 bg-cyan-500/5' : 'border-emerald-400 bg-emerald-500/5'}">
+                    <div class="flex justify-between text-[9px] opacity-60 font-bold mb-0.5 font-header tracking-wider uppercase">
+                        <span>${log.sender === 'user' ? '👤 YOU' : '🤖 AI TEACHER'}</span>
+                        <span>${log.timestamp}</span>
+                    </div>
+                    <div class="text-[11px] opacity-90 whitespace-pre-line leading-relaxed font-sans">${log.message}</div>
+                    <div class="text-[8px] text-neutral-400 mt-1 italic opacity-40 font-mono">Bound Node: ${log.context || 'Global'}</div>
+                </div>
+            `).join('<div class="h-1.5"></div>');
+            
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // BACKOFF RETRY CONTROLLER
+        async function fetchWithRetry(url, options, retries = 5, delay = 1000) {
+            try {
+                const response = await fetch(url, options);
+                if (!response.ok) throw new Error(`HTTP pipeline status fault: ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                if (retries > 0) {
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    return fetchWithRetry(url, options, retries - 1, delay * 2);
+                }
+                throw error;
+            }
+        }
+
+        // NATIVE DISPATCH PIPELINES
+        async function queryGemini(promptText, outputElementId, storageType) {
             const targetOutput = document.getElementById(outputElementId);
-            targetOutput.innerText = "Processing variables via Google cloud orchestration pipeline...";
+            targetOutput.innerText = "Extracting data profiles via AI orchestration pipelines...";
             
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const data = await fetchWithRetry(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: promptText }] }]
-                    })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
                 });
-                const data = await response.json();
-                const processedText = data.candidates[0].content.parts[0].text;
                 
+                const processedText = data.candidates?.[0]?.content?.parts?.[0]?.text || "No actionable data logs received from target engine arrays.";
                 targetOutput.innerText = processedText;
                 
                 if (currentTopic && storageType) {
                     saveContent(currentTopic, storageType, processedText);
                 }
             } catch (err) {
-                targetOutput.innerText = `Gemini API Cloud Pipeline Failure: ${err.message}`;
+                targetOutput.innerText = `Gemini Pipeline Connection Interrupted: ${err.message}`;
+                showAlert("Sync Timeout", "Failed to retrieve the study guide files.");
             }
         }
 
         function fetchTheory() {
-            if (!currentTopic) return alert("Select target context component tree node first.");
-            const prompt = `You are an expert NSQF vocational professor guiding a student in IT-ITeS (Information Technology Enabled Services). 
-            Generate a concise, interactive, and beautifully structured Theory Lesson with crystal-clear explanations, real-world Indian BPO industry examples, and core points to memorize for this specific subtopic: "${currentTopic}". Use bolding and bullet points to make it readable on a mobile screen.`;
+            if (!currentTopic) return showAlert("Chapter Required", "Select an NCERT chapter from the indexing sidebar tree first.");
+            const prompt = `You are an expert vocational training instructor for the NSQF IT-ITeS course. Based strictly on the NCERT Class XI CRM Domestic Voice textbook (Qualification Pack SSC/Q2210), generate highly structured, detailed, compact Theory Notes, specific sub-topic definitions, and real-world BPO examples for: "${currentTopic}". Use clean headings, bolding, and bullet points.`;
             queryGemini(prompt, "theoryOutput", "theory");
         }
 
         function fetchPractical() {
-            if (!currentTopic) return alert("Select target context component tree node first.");
-            const prompt = `You are an expert technical evaluator guiding an IT-ITeS student through their Practical Portfolio exam layout (70 Marks total). 
-            Generate a detailed step-by-step practical laboratory exercise and operational workflow configuration for this topic: "${currentTopic}". Include exact procedural actions and database tracking logs where appropriate.`;
+            if (!currentTopic) return showAlert("Chapter Required", "Select an NCERT chapter from the indexing sidebar tree first.");
+            const prompt = `You are a vocational technical lab supervisor. Based on the NCERT Class XI CRM Domestic Voice curriculum, map out a clear, step-by-step practical assignment complete with object scopes, exact software steps (using spreadsheets or virtual CRM arrays), data logging checklists, and submission guidelines for: "${currentTopic}".`;
             queryGemini(prompt, "practicalOutput", "practical");
         }
 
         function fetchExam() {
-            if (!currentTopic) return alert("Select target context component tree node first.");
-            const prompt = `You are an NSQF IT-ITeS external examiner. Create a comprehensive mock exam module for the topic: "${currentTopic}". 
-            Include 3 Multiple Choice Questions (MCQs) with answers explained, 2 short description questions, and 1 interactive oral Viva question.`;
+            if (!currentTopic) return showAlert("Chapter Required", "Select an NCERT chapter from the indexing sidebar tree first.");
+            const prompt = `You are an official external NSQF examiner reviewing Class XI IT-ITeS students. Compile a rigorous mock assessment based on: "${currentTopic}". Include 3 Multiple Choice Questions (with full answer keys), 2 short descriptive theory queries, and 1 situational oral Viva question focused on call quality guidelines.`;
             queryGemini(prompt, "examOutput", "exam");
         }
 
-        // 💬 INTERACTIVE PERSONAL STUDENT CHAT ENGINE CONTROLLER
+        // CONNECTED PERSISTENT CHAT CONTROLLER
         async function sendChatMessage() {
             const query = document.getElementById("chatInput").value.trim();
             if (!query) return;
-            if (!currentTopic) return alert("Please select a Syllabus Topic from the menu first so the AI knows the chapter context!");
-
-            const displayConsole = document.getElementById("chatResponse");
-            displayConsole.classList.remove("hidden");
-            displayConsole.innerText = "Thinking and formulating explanation parameters...";
             
-            // Force expand the view automatically to reveal response
-            isChatExpanded = true;
-            displayConsole.style.maxHeight = "240px";
-            document.getElementById("expandChatBtn").innerText = "▼ Collapse Chat View";
+            const bindingContext = currentTopic || "Global Framework (No Chapter Node Selected)";
+            saveChatLogItem("user", query, bindingContext);
             document.getElementById("chatInput").value = "";
 
-            // Smooth scroll input into focus bounds
-            document.getElementById("chatInput").scrollIntoView({ behavior: 'smooth' });
+            const container = document.getElementById("chatHistoryContainer");
+            const loadingIndex = document.createElement("div");
+            loadingIndex.id = "chat-ai-loading-node";
+            loadingIndex.className = "p-2 rounded bg-white/5 border-l-2 border-emerald-400 animate-pulse text-neutral-400 font-sans text-[11px]";
+            loadingIndex.innerText = "Analyzing query with full book context logs...";
+            container.appendChild(loadingIndex);
+            container.scrollTop = container.scrollHeight;
 
-            const key = localStorage.getItem("gemini_api_key");
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const systemBoundPrompt = `You are an expert vocational tutor specializing in the NCERT Class XI IT-ITeS textbook "CRM Domestic Voice" (SSC/Q2210). The student is currently studying the chapter: "${bindingContext}". Provide a brief, exact, and smaller response using official BPO glossary terms for their question: "${query}"`;
+                
+                const data = await fetchWithRetry(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: `You are a helpful, expert vocational teacher for the NSQF IT-ITeS course. The student is currently studying the chapter: "${currentTopic}". Answer their custom question directly, in an easy-to-understand way with examples: "${query}"` }] }]
-                    })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: systemBoundPrompt }] }] })
                 });
-                const data = await response.json();
-                displayConsole.innerText = data.candidates[0].content.parts[0].text;
+                
+                const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || "No clear contextual feedback logged.";
+                
+                const loader = document.getElementById("chat-ai-loading-node");
+                if (loader) loader.remove();
+                
+                saveChatLogItem("ai", responseText, bindingContext);
             } catch (err) {
-                displayConsole.innerText = `Error connecting to chat engine: ${err.message}`;
+                const loader = document.getElementById("chat-ai-loading-node");
+                if (loader) loader.remove();
+                saveChatLogItem("ai", `Connection engine disruption detected: ${err.message}`, bindingContext);
             }
         }
 
-        // SANDBOX EXTRA MODULES
+        // SANDBOX VERIFICATION CONTROL CHECKS
         async function verifyRegionalScript() {
             const dataText = document.getElementById("regionalInput").value.trim();
-            if (!dataText) return alert("Type script sample for evaluation analysis.");
-            const key = localStorage.getItem("gemini_api_key");
-            alert("Analyzing script content syntax layout formatting...");
+            if (!dataText) return showAlert("Data Fault", "Enter regional script text string inside sandbox for analysis.");
+            
+            showAlert("Parsing Script", "Evaluating text syntax mechanics for accurate data processing entry logs...");
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const data = await fetchWithRetry(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         contents: [{ parts: [{ text: `Analyze the following Bengali or Assamese script text for typing structure accuracy appropriate for an IT-ITeS office deployment data entry task: "${dataText}". Give brief feedback.` }] }]
                     })
                 });
-                const data = await response.json();
-                alert(`Analysis Results:\n\n${data.candidates[0].content.parts[0].text}`);
-            } catch(e) { alert("Analysis failed."); }
+                showAlert("Analysis Matrix Complete", data.candidates?.[0]?.content?.parts?.[0]?.text || "No data logged.");
+            } catch(e) { 
+                showAlert("Pipeline Interruption", "Failed to compile the script review parameters."); 
+            }
         }
 
         function initSpeechRecognition() {
@@ -451,32 +590,31 @@
         }
 
         function startVoiceRoleplay() {
-            if (!voiceRecognition) return alert("Speech engine framework absent.");
+            if (!voiceRecognition) return showAlert("Device Compatibility", "The embedded audio speech pipeline interface is absent on this browser profile.");
             if (isRecording) return;
             isRecording = true;
             voiceRecognition.start();
-            document.getElementById("voiceTranscript").innerText = "Voice channel established. Speak clearly now...";
+            document.getElementById("voiceTranscript").innerText = "Voice channel connection open. Speak your call scripting response cleanly now...";
         }
 
         function stopVoiceRoleplay() {
             if (!voiceRecognition || !isRecording) return;
             isRecording = false;
             voiceRecognition.stop();
-            document.getElementById("voiceTranscript").innerText = "Voice channel closed.";
+            document.getElementById("voiceTranscript").innerText = "Voice channel connection closed.";
         }
 
         async function evaluateVoiceResponse(speechText) {
-            const key = localStorage.getItem("gemini_api_key");
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const data = await fetchWithRetry(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: `As a Domestic CRM Voice Quality Auditor, evaluate this user phrase response: "${speechText}". Check for clear customer interaction delivery terminology and grammar focus layout.` }] }]
+                        contents: [{ parts: [{ text: `Act as a corporate BPO Customer Interaction Quality Auditor. Evaluate the vocabulary usage, customer tone correctness, and syntax delivery structure of this outbound transcription: "${speechText}"` }] }]
                     })
                 });
-                const data = await response.json();
-                alert(`Voice Audit Report:\n\n${data.candidates[0].content.parts[0].text}`);
+                showAlert("Voice Quality Audit Assessment", data.candidates?.[0]?.content?.parts?.[0]?.text || "No metric output captured.");
             } catch(e) { console.log(e); }
         }
 
@@ -484,21 +622,25 @@
             const targetCustomer = document.getElementById("ticketCustomer").value.trim();
             const chosenPriority = document.getElementById("ticketPriority").value;
             const coreIssue = document.getElementById("ticketIssue").value.trim();
-            if(!targetCustomer || !coreIssue) return alert("Populate ticket registry fields completely before attempting database log simulation.");
-            const key = localStorage.getItem("gemini_api_key");
-            alert("Submitting ticket package to processing pipeline engine arrays...");
+            if (!targetCustomer || !coreIssue) return showAlert("Form Incomplete", "Complete both customer identity indices and interaction data before submitting log forms.");
+            
+            showAlert("CRM Processing", "Submitting verification files across active network arrays...");
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const data = await fetchWithRetry(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: `Evaluate this customer support ticket. Customer: ${targetCustomer}, Priority: ${chosenPriority}, Issue Statement: "${coreIssue}". Is this professional, concise, and structured accurately according to standard corporate BPO guidelines? Give quick, strict feedback.` }] }]
+                        contents: [{ parts: [{ text: `Evaluate this simulated Class XI BPO ticketing structure log. Client identity index: ${targetCustomer}, Level tier tag: ${chosenPriority}, Issue summary: "${coreIssue}". Is this professional and concise based on corporate BPO best practices? Give actionable feedback.` }] }]
                     })
                 });
-                const data = await response.json();
-                alert(`CRM System Ticket Verification Report:\n\n${data.candidates[0].content.parts[0].text}`);
-            } catch(e) { alert("Ticket verification error."); }
+                showAlert("CRM Verification Audit Complete", data.candidates?.[0]?.content?.parts?.[0]?.text || "Failed to parse form response rules.");
+            } catch(e) { 
+                showAlert("Sync failure", "The server failed to process the mock database parameters."); 
+            }
         }
     </script>
 </body>
 </html>
+
+```
